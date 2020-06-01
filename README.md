@@ -6,3 +6,24 @@ Create a configurable two-level cache (for caching Objects).  Level 1 is memory,
 ### High-level architecture diagram of the system, identifying all major components
 
 ![Test Image 1](https://github.com/idthusitha/two-level-cache/blob/master/doc/two-level-cache.png)
+
+
+### Selected Technologies
+   Java 1.8
+   Sprint Boot 2.2.7
+   Gradle Build
+   Junit Testing
+   
+   
+### API
+
+
+TwoLevelCache(int memoryCapacity, int fileCapacity)
+
+    TwoLevelCache twoLevelCache = new TwoLevelCache<>(1, 1);
+	 String VALUE1 = "value1";
+    twoLevelCache.put(0, VALUE1);
+	 twoLevelCache.get(0); // Output should be "value1"
+	twoLevelCache.getSize();  // Output should be "1"
+	twoLevelCache.remove(0);
+	twoLevelCache.get(0); // Output should be null
