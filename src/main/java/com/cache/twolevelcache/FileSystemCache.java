@@ -12,8 +12,13 @@ import java.nio.file.Path;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static java.lang.String.format;
-
+/**
+ * 
+ * @author thusitha
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class FileSystemCache<K extends Serializable, V extends Serializable> implements Cache<K, V> {
 	private final Map<K, String> objectsStorage;
 	private final Path tempDir;

@@ -1,7 +1,5 @@
 package com.cache.twolevelcache.strategies;
 
-
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,37 +11,35 @@ import org.junit.jupiter.api.Test;
 
 import com.cache.twolevelcache.TwoLevelCache;
 
-
-
 public class LRUCacheTest {
-    private TwoLevelCache<Integer, String> twoLevelCache;
+	private TwoLevelCache<Integer, String> twoLevelCache;
 
-    @AfterEach
-    public void clear() throws IOException {
-        twoLevelCache.clear();
-    }
+	@AfterEach
+	public void clear() throws IOException {
+		twoLevelCache.clear();
+	}
 
-    @Test
-    public void shouldMoveObjectFromCacheTest() throws Exception {
-        twoLevelCache = new TwoLevelCache<>(2, 2, "LRU");
+	@Test
+	public void shouldMoveObjectFromCacheTest() throws Exception {
+		twoLevelCache = new TwoLevelCache<>(2, 2, "LRU");
 
-        // i=0 - Least Recently Used - will be removed
-        IntStream.range(0, 4).forEach(i -> {
-            try {
+		// i=0 - Least Recently Used - will be removed
+		IntStream.range(0, 4).forEach(i -> {
+			try {
 				twoLevelCache.put(i, "String " + i);
-			} catch (IOException e) {				
+			} catch (IOException e) {
 				e.printStackTrace();
 			}
-            assertTrue(twoLevelCache.isObjectPresent(i));
-            twoLevelCache.get(i);
-        });
+			assertTrue(twoLevelCache.isObjectPresent(i));
+			twoLevelCache.get(i);
+		});
 
-        twoLevelCache.put(4, "String 4");
+		twoLevelCache.put(4, "String 4");
 
-        assertFalse(twoLevelCache.isObjectPresent(0)); //Least Recently Used - has been removed
-        assertTrue(twoLevelCache.isObjectPresent(1));
-        assertTrue(twoLevelCache.isObjectPresent(2));
-        assertTrue(twoLevelCache.isObjectPresent(3));
-        assertTrue(twoLevelCache.isObjectPresent(4));
-    }
+		assertFalse(twoLevelCache.isObjectPresent(0));
+		assertTrue(twoLevelCache.isObjectPresent(1));
+		assertTrue(twoLevelCache.isObjectPresent(2));
+		assertTrue(twoLevelCache.isObjectPresent(3));
+		assertTrue(twoLevelCache.isObjectPresent(4));
+	}
 }

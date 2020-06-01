@@ -8,6 +8,13 @@ import com.cache.twolevelcache.strategies.LRUStrategy;
 import com.cache.twolevelcache.strategies.MRUStrategy;
 import com.cache.twolevelcache.strategies.Storage;
 
+/**
+ * 
+ * @author thusitha
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class TwoLevelCache<K extends Serializable, V extends Serializable> implements Cache<K, V> {
 
 	private final MemoryCache<K, V> firstLevelCache;
@@ -46,22 +53,17 @@ public class TwoLevelCache<K extends Serializable, V extends Serializable> imple
 	@Override
 	public synchronized void put(K newKey, V newValue) throws IOException {
 		if (firstLevelCache.isObjectPresent(newKey) || firstLevelCache.hasEmptyPlace()) {
-			// log.debug(format("Put object with key %s to the 1st level", newKey));
 			firstLevelCache.put(newKey, newValue);
 			if (secondLevelCache.isObjectPresent(newKey)) {
 				secondLevelCache.remove(newKey);
 			}
 		} else if (secondLevelCache.isObjectPresent(newKey) || secondLevelCache.hasEmptyPlace()) {
-			// log.debug(format("Put object with key %s to the 2nd level", newKey));
 			secondLevelCache.put(newKey, newValue);
 		} else {
-			// Here we have full cache and have to replace some object with new one
-			// according to cache strategy.
 			replaceObject(newKey, newValue);
 		}
 
 		if (!strategy.isObjectPresent(newKey)) {
-			// log.debug(format("Put object with key %s to strategy", newKey));
 			strategy.put(newKey);
 		}
 	}
@@ -69,11 +71,9 @@ public class TwoLevelCache<K extends Serializable, V extends Serializable> imple
 	private void replaceObject(K key, V value) throws IOException {
 		K replacedKey = strategy.getReplacedKey();
 		if (firstLevelCache.isObjectPresent(replacedKey)) {
-			// log.debug(format("Replace object with key %s from 1st level", replacedKey));
 			firstLevelCache.remove(replacedKey);
 			firstLevelCache.put(key, value);
 		} else if (secondLevelCache.isObjectPresent(replacedKey)) {
-			// log.debug(format("Replace object with key %s from 2nd level", replacedKey));
 			secondLevelCache.remove(replacedKey);
 			secondLevelCache.put(key, value);
 		}
@@ -94,11 +94,9 @@ public class TwoLevelCache<K extends Serializable, V extends Serializable> imple
 	@Override
 	public synchronized void remove(K key) {
 		if (firstLevelCache.isObjectPresent(key)) {
-			// log.debug(format("Remove object with key %s from 1st level", key));
 			firstLevelCache.remove(key);
 		}
 		if (secondLevelCache.isObjectPresent(key)) {
-			// log.debug(format("Remove object with key %s from 2nd level", key));
 			secondLevelCache.remove(key);
 		}
 		strategy.remove(key);
@@ -133,7 +131,7 @@ public class TwoLevelCache<K extends Serializable, V extends Serializable> imple
 	public FileSystemCache<K, V> getSecondLevelCache() {
 		return secondLevelCache;
 	}
-	
+
 	public Storage<K> getStrategy() {
 		return strategy;
 	}

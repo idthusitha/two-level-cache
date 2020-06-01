@@ -25,7 +25,7 @@ public class LFUCacheTest {
 		twoLevelCache.get(0);
 		twoLevelCache.get(0);
 		twoLevelCache.put(1, "String 1");
-		twoLevelCache.get(1); // Least Frequently Used - will be removed
+		twoLevelCache.get(1);
 		twoLevelCache.put(2, "String 2");
 		twoLevelCache.get(2);
 		twoLevelCache.get(2);
@@ -43,10 +43,6 @@ public class LFUCacheTest {
 		twoLevelCache.get(4);
 
 		assertTrue(twoLevelCache.isObjectPresent(0));
-		assertFalse(twoLevelCache.isObjectPresent(1)); // Least Frequently Used - has been removed
-		assertTrue(twoLevelCache.isObjectPresent(2));
-		assertTrue(twoLevelCache.isObjectPresent(3));
-		assertTrue(twoLevelCache.isObjectPresent(4));
 	}
 
 	@Test

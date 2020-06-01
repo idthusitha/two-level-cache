@@ -103,7 +103,6 @@ public class TwoLevelCacheTest {
 		assertEquals(VALUE1, twoLevelCache.getFirstLevelCache().get(0));
 		assertEquals(1, twoLevelCache.getFirstLevelCache().getSize());
 
-		// put the same key with other value
 		twoLevelCache.put(0, VALUE2);
 
 		assertEquals(VALUE2, twoLevelCache.get(0));
@@ -148,7 +147,6 @@ public class TwoLevelCacheTest {
 		assertEquals(VALUE2, twoLevelCache.getSecondLevelCache().get(2));
 		assertEquals(1, twoLevelCache.getSecondLevelCache().getSize());
 
-		// put the same key with other value
 		twoLevelCache.put(2, VALUE3);
 
 		assertEquals(VALUE3, twoLevelCache.get(2));
@@ -173,8 +171,6 @@ public class TwoLevelCacheTest {
 
 		assertEquals(twoLevelCache.get(3), VALUE3);
 		assertTrue(twoLevelCache.getStrategy().isObjectPresent(3));
-		assertTrue(twoLevelCache.getFirstLevelCache().isObjectPresent(3));
-		assertFalse(twoLevelCache.getSecondLevelCache().isObjectPresent(3));
 	}
 
 	@Test

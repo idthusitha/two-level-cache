@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * 
+ * @author thusitha
+ *
+ * @param <K>
+ * @param <V>
+ */
 public class MemoryCache<K extends Serializable, V extends Serializable> implements Cache<K, V> {
 	private final Map<K, V> objectsStorage;
 	private final int capacity;

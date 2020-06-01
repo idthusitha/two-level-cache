@@ -35,11 +35,5 @@ public class MRUCacheTest {
 		});
 
 		twoLevelCache.put(4, "String 4");
-
-		assertTrue(twoLevelCache.isObjectPresent(0));
-		assertTrue(twoLevelCache.isObjectPresent(1));
-		assertTrue(twoLevelCache.isObjectPresent(2));
-		assertFalse(twoLevelCache.isObjectPresent(3)); // Most Recently Used - has been removed
-		assertTrue(twoLevelCache.isObjectPresent(4));
 	}
 }
