@@ -15,9 +15,16 @@ Create a configurable two-level cache (for caching Objects).  Level 1 is memory,
    * Junit Testing
    
    
+### Build instructions   
+	cd {{ WORKSPACE_PATH }}
+	git clone https://github.com/idthusitha/two-level-cache.git
+	cd  two-level-cache
+	gradle clean build
+
+
 ### API 1.0.0
 
-Constuctor definition:
+Constructor definition:
 TwoLevelCache(int memoryCapacity, int fileCapacity)
 
 	TwoLevelCache twoLevelCache = new TwoLevelCache<>(1, 1);
